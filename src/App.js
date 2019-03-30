@@ -3,46 +3,16 @@ import './App.css';
 import MovieRow from './MovieRow.js';
 import $ from 'jquery';
 
-
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {}
-    // console.log("This is my initializer")
-
-  //   const movies = [{
-  //     id: 0, 
-  //     poster_src: "https://image.tmdb.org/t/p/w600_and_h900_bestv2/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",
-  //     title: "Avengers: Infinity War",
-  //     overview: "As the avengers and their"
-  //   },
-  //   {
-  //     id: 1, 
-  //     poster_src: "https://image.tmdb.org/t/p/w600_and_h900_bestv2/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",
-  //     title: "The Avengers",
-  //     overview: "This is my second overview"
-  //   }
-  // ]
-
-
-
-  //   let movieRows = [];
-  //   movies.forEach((movie) => {
-  //     console.log(movie.title)
-  //     const movieRow = <MovieRow movie={movie} />
-  //     movieRows.push(movieRow)
-  //   })
-
-  //   this.state = {rows: movieRows}
-  // 
-
-  this.performSearch();
-
+    this.performSearch();
   }
 
-  performSearch() {
+  performSearch(searchTerm) {
     console.log("Perform search using moviedb");
-    const urlString = "https://api.themoviedb.org/3/search/movie?query=marvel&api_key=c261880f23d34ae50288c921b209df51"
+    const urlString = "https://api.themoviedb.org/3/search/movie?&api_key=c261880f23d34ae50288c921b209df51&query=" + searchTerm
     $.ajax({
       url: urlString,
       success: (searchResults) => {
@@ -51,16 +21,14 @@ class App extends Component {
         const results = searchResults.results;
         console.log(results[0])
 
-
         let movieRows = []
 
         results.forEach((movie) => {
-          movie.poster_src = 
-          console.log(movie.title);
-          const movieRow = <MovieRow movie={movie}/>
+          movie.poster_src = "https://image.tmdb.org/t/p/w185" + movie.poster_path;
+          // console.log(movie.poster_path);
+          const movieRow = <MovieRow key={movie.id} movie={movie}/>
           movieRows.push(movieRow)
         })
-
         this.setState({rows: movieRows})
       },
       error: (xhr, status, err) => {
@@ -69,12 +37,16 @@ class App extends Component {
     })
   }
 
-
+  searchChangeHandler(event) {
+    console.log(event.target.value)
+    const boundObject = this;
+    const searchTerm = event.target.value
+    boundObject.performSearch(searchTerm)
+  }
 
   render() {
     return (
       <div>
-
         <table className="titleBar">
           <tbody>
             <tr>
@@ -96,14 +68,8 @@ class App extends Component {
           paddingTop: 8,
           paddingBottom: 8,
           paddingLeft: 15
-        }}/> 
-
+        }}onChange={this.searchChangeHandler.bind(this)}/> 
         {this.state.rows}
-
-
-        
-  
-       
       </div>
     );
   }
