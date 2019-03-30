@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 import MovieRow from './MovieRow.js';
+import $ from 'jquery';
 
 
 class App extends Component {
   constructor(props) {
     super(props)
-    console.log("This is my initializer")
+    this.state = {}
+    // console.log("This is my initializer")
 
   //   const movies = [{
   //     id: 0, 
@@ -32,9 +34,42 @@ class App extends Component {
   //   })
 
   //   this.state = {rows: movieRows}
-  // }
+  // 
 
-  
+  this.performSearch();
+
+  }
+
+  performSearch() {
+    console.log("Perform search using moviedb");
+    const urlString = "https://api.themoviedb.org/3/search/movie?query=marvel&api_key=c261880f23d34ae50288c921b209df51"
+    $.ajax({
+      url: urlString,
+      success: (searchResults) => {
+        console.log("Fetched data successfully");
+        console.log(searchResults);
+        const results = searchResults.results;
+        console.log(results[0])
+
+
+        let movieRows = []
+
+        results.forEach((movie) => {
+          movie.poster_src = 
+          console.log(movie.title);
+          const movieRow = <MovieRow movie={movie}/>
+          movieRows.push(movieRow)
+        })
+
+        this.setState({rows: movieRows})
+      },
+      error: (xhr, status, err) => {
+        console.error("Failed to fetch data");
+      }
+    })
+  }
+
+
 
   render() {
     return (
