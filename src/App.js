@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import MovieRow from './MovieRow.js';
 
 
 class App extends Component {
@@ -7,44 +8,33 @@ class App extends Component {
     super(props)
     console.log("This is my initializer")
 
-    const movies = [{
-      id: 0, 
-      poster_src: "https://image.tmdb.org/t/p/w600_and_h900_bestv2/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",
-      title: "Avengers: Infinity War",
-      overview: "As the avengers and their"
-    },
-    {
-      id: 1, 
-      poster_src: "https://image.tmdb.org/t/p/w600_and_h900_bestv2/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",
-      title: "The Avengers",
-      overview: "This is my second overview"
-    }
-  ]
+  //   const movies = [{
+  //     id: 0, 
+  //     poster_src: "https://image.tmdb.org/t/p/w600_and_h900_bestv2/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",
+  //     title: "Avengers: Infinity War",
+  //     overview: "As the avengers and their"
+  //   },
+  //   {
+  //     id: 1, 
+  //     poster_src: "https://image.tmdb.org/t/p/w600_and_h900_bestv2/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",
+  //     title: "The Avengers",
+  //     overview: "This is my second overview"
+  //   }
+  // ]
 
 
 
-    let movieRows = [];
-    movies.forEach((movie) => {
-      console.log(movie.title)
-      const movieRow = <table key={movie.id}>
-        <tbody>
-          <tr>
-            <td>
-              <img alt="poster" width="150" src={movie.poster_src}></img>
+  //   let movieRows = [];
+  //   movies.forEach((movie) => {
+  //     console.log(movie.title)
+  //     const movieRow = <MovieRow movie={movie} />
+  //     movieRows.push(movieRow)
+  //   })
 
-            </td>
-            <td>
-              {movie.title}
-              <p>{movie.overview}</p>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      movieRows.push(movieRow)
-    })
+  //   this.state = {rows: movieRows}
+  // }
 
-    this.state = {rows: movieRows}
-  }
+  
 
   render() {
     return (
