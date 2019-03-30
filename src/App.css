@@ -7,6 +7,11 @@
   padding-left: 15px;
 }
 
+.titleOverview {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
 .App {
   text-align: center;
 }
